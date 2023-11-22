@@ -18,8 +18,8 @@ git clone https://github.com/ThiagoGlady/escribo-desafio-2.git
 ```
 #### Caso você esteja usando windows, baixe e instale o [Git for Windows](https://git-scm.com/download/win) para abrir o GitBash e use o comando nele.
 
-### 2. Certifique-se de ter o MySQL instalado e um banco de dados ativo
-#### Para o funcionamento correto do projeto, é preciso ter um banco de dados já em funcionamento. Se você não tem o MySQL na máquina, certifique-se de [baixá-lo aqui](https://dev.mysql.com/downloads/). Recomendado o "MySQL Shell" ou o "MySQL Installer for Windows". Se precisar, [aqui tem um tutorial](https://www.youtube.com/watch?v=a5ul8o76Hqw&t=320s) de como fazer a instalação e configurações necessárias.
+### 2. (se quer usar seu banco de dados local) Certifique-se de ter o MySQL instalado e um banco de dados ativo
+#### Caso queira usar seu próprio banco de dados, é preciso ter um em MySQL já em funcionamento. Se você não tem o MySQL na máquina, certifique-se de [baixá-lo aqui](https://dev.mysql.com/downloads/). Recomendado o "MySQL Shell" ou o "MySQL Installer for Windows". Se precisar, [aqui tem um tutorial](https://www.youtube.com/watch?v=a5ul8o76Hqw&t=320s) de como fazer a instalação e configurações necessárias.
 
 ### 3. Instalar Dependências
 #### Certifique-se de ter o [Node.js](https://nodejs.org/en/download) instalado. Em seguida, no diretório "processo",  use o comando:
@@ -27,8 +27,8 @@ git clone https://github.com/ThiagoGlady/escribo-desafio-2.git
 npm install
 ```
 
-### 4. Mude o .env.example
-#### Ao clonar o repositório, você verá um arquivo chamado ".env.example". Primeiro, tire o ".example", deixando apenas .env. Em seguida, adicione os dados que a API precisa para algumas funções.
+### 4. (se quer usar o seu banco de dados local) Mude o .env
+#### Ao clonar o repositório, você verá um arquivo chamado ".env", adicione os dados que a API precisa para algumas funções.
 #### **PORT**: A porta que a API vai abrir para a URL. O padrão é 3001.
 #### **HOST**: O host do servidor. O padrão é localhost.
 #### **USER**: O usuário do seu MySQL. O padrão é root.
