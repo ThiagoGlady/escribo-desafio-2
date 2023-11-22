@@ -3,6 +3,26 @@ const getData = require('../helpers/getData');
 const makeTelefoneQuery = require('../helpers/makeTelefoneQuery');
 
 const getUsers = async () => {
+    await connection.execute(
+        `CREATE TABLE IF NOT EXISTS users (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            nome VARCHAR(50),
+            email VARCHAR(100) UNIQUE,
+            senha VARCHAR(255),
+            data_criacao VARCHAR(255)
+        );`
+    );
+
+    await connection.execute(
+        `CREATE TABLE IF NOT EXISTS phonenumbers (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            user_id INT,
+            num VARCHAR(20),
+            ddd VARCHAR(3),
+            FOREIGN KEY (user_id) REFERENCES users(id)
+        );`
+    );
+
     const [rows] = await connection.execute('SELECT * FROM users');
 
     return rows;
@@ -10,6 +30,26 @@ const getUsers = async () => {
 
 const createUser = async (user) => {
     const {nome, email, senha, telefones} = user;
+
+    await connection.execute(
+        `CREATE TABLE IF NOT EXISTS users (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            nome VARCHAR(50),
+            email VARCHAR(100) UNIQUE,
+            senha VARCHAR(255),
+            data_criacao VARCHAR(255)
+        );`
+    );
+
+    await connection.execute(
+        `CREATE TABLE IF NOT EXISTS phonenumbers (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            user_id INT,
+            num VARCHAR(20),
+            ddd VARCHAR(3),
+            FOREIGN KEY (user_id) REFERENCES users(id)
+        );`
+    );
 
     if (!(await verifyEmail(user))) {
         return [{
@@ -49,6 +89,26 @@ const verifyEmail = async (user) => {
 const login = async (user) => {
     const {email, senha} = user;
 
+    await connection.execute(
+        `CREATE TABLE IF NOT EXISTS users (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            nome VARCHAR(50),
+            email VARCHAR(100) UNIQUE,
+            senha VARCHAR(255),
+            data_criacao VARCHAR(255)
+        );`
+    );
+
+    await connection.execute(
+        `CREATE TABLE IF NOT EXISTS phonenumbers (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            user_id INT,
+            num VARCHAR(20),
+            ddd VARCHAR(3),
+            FOREIGN KEY (user_id) REFERENCES users(id)
+        );`
+    );
+
     const [rows] = await connection.execute('SELECT * FROM users WHERE email = ?', [email]);
 
     if (rows.length == 0) {
@@ -67,6 +127,26 @@ const login = async (user) => {
 };
 
 const getUser = async (email) => {
+    await connection.execute(
+        `CREATE TABLE IF NOT EXISTS users (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            nome VARCHAR(50),
+            email VARCHAR(100) UNIQUE,
+            senha VARCHAR(255),
+            data_criacao VARCHAR(255)
+        );`
+    );
+
+    await connection.execute(
+        `CREATE TABLE IF NOT EXISTS phonenumbers (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            user_id INT,
+            num VARCHAR(20),
+            ddd VARCHAR(3),
+            FOREIGN KEY (user_id) REFERENCES users(id)
+        );`
+    );
+
     const [[user]] = await connection.execute(`SELECT id, nome, email, data_criacao FROM users WHERE email = '${email}'`);
 
     return user;
