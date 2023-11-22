@@ -64,10 +64,17 @@ const login = async (user) => {
     }
 
     return rows;
-}
+};
+
+const getUser = async (email) => {
+    const [[user]] = await connection.execute(`SELECT id, nome, email, data_criacao FROM users WHERE email = '${email}'`);
+
+    return user;
+};
 
 module.exports = {
     getUsers,
     createUser,
-    login
+    login,
+    getUser
 };

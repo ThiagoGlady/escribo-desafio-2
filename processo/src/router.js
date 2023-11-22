@@ -1,11 +1,18 @@
 const {Router} = require('express');
 const userController = require('./controller/userController');
+const jwtController = require('./helpers/jwtController');
 
 const router = Router();
 
 router.get(
-    '/user',
+    '/users',
     userController.getUsers
+);
+
+router.get(
+    '/user',
+    jwtController.verifyToken,
+    userController.getUser
 );
 
 router.get(
