@@ -11,6 +11,10 @@ const createUser = async (req, res) => {
     const user = req.body;
 
     const [createdData] = await userModel.createUser(user);
+   
+    if (createdData.hasOwnProperty('mensagem')) {
+        return res.status(400).json(createdData);
+    };
 
     return res.status(201).json({
         id: createdData.insertId,

@@ -10,6 +10,12 @@ const getUsers = async () => {
 
 const createUser = async (user) => {
     const {nome, email, senha, telefones} = user;
+
+    if (!(await verifyEmail(user))) {
+        return [{
+            mensagem: "Email já existente" 
+        }]
+    };
     
     const dateUTC = getData();
 
@@ -28,6 +34,16 @@ const createUser = async (user) => {
     );
 
     return createdUser;
+};
+
+const verifyEmail = async (user) => {
+    const {email} = user;
+
+    const [[emailTotal]] = await connection.execute(
+        `SELECT COUNT(*) AS total FROM users WHERE email = '${email}';`
+    );
+
+    return emailTotal.total == 0;
 };
 
 module.exports = {
