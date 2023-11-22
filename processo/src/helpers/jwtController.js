@@ -6,4 +6,6 @@ const createToken = (username) => {
     return token;
 };
 
-module.exports = createToken;
+module.exports = {
+    createToken,
+}

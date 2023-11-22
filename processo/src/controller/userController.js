@@ -1,4 +1,5 @@
 const userModel = require('../model/userModel');
+const jwtController = require('../helpers/jwtController');
 
 const getUsers = async(_req, res) => {
     const rows = await userModel.getUsers();
@@ -13,6 +14,8 @@ const createUser = async (req, res) => {
 
     return res.status(201).json({
         id: createdData.insertId,
+        data_criacao: createdData.data_criacao,
+        token: jwtController.createToken(user.nome)
     });
 };
 
