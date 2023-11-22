@@ -42,4 +42,45 @@ npm install
 npm start
 ```
 
+## Requisições
+### Pegar todos os usuários (GET)
+```
+http://15.228.11.211:3333/users
+```
 
+### Cadastro (POST)
+```
+http://15.228.11.211:3333/user
+```
+#### Body
+```
+{
+	"nome": "nome",
+	"email": "nome@example.com",
+	"senha": "senha",
+	"telefones": [{"numero": "12345678", "ddd": "11"}, {"numero": "87654321", "ddd": "21"}]
+}
+```
+
+### Login (GET)
+```
+http://15.228.11.211:3333/login
+```
+#### Body
+```
+{
+	"email": "nome@example.com",
+	"senha": "senha"
+}
+```
+
+### Buscar Usuário (GET)
+```
+http://15.228.11.211:3333/user
+```
+#### Header
+```
+{
+	"authorization": "token-enorme"
+}
+```
