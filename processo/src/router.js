@@ -8,6 +8,11 @@ router.get(
     userController.getUsers
 );
 
+router.get(
+    '/login',
+    userController.login
+);
+
 router.post(
     '/user',
     userController.createUser

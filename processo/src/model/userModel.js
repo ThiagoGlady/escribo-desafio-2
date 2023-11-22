@@ -46,7 +46,28 @@ const verifyEmail = async (user) => {
     return emailTotal.total == 0;
 };
 
+const login = async (user) => {
+    const {email, senha} = user;
+
+    const [rows] = await connection.execute('SELECT * FROM users WHERE email = ?', [email]);
+
+    if (rows.length == 0) {
+        return {
+            mensagem: 'Usuário e/ou senha inválidos'
+        }
+    }
+
+    if (rows[0].senha != senha) {
+        return {
+            mensagem: 'Usuário e/ou senha inválidos'
+        }
+    }
+
+    return rows;
+}
+
 module.exports = {
     getUsers,
-    createUser
+    createUser,
+    login
 };

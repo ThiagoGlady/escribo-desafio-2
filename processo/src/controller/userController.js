@@ -23,7 +23,24 @@ const createUser = async (req, res) => {
     });
 };
 
+const login = async (req, res) => {
+    const user = req.body;
+
+    const [loginData] = await userModel.login(user);
+
+    if (loginData.hasOwnProperty('mensagem')) {
+        return res.status(401).json(loginData);
+    };
+
+    return res.status(200).json({
+        id: loginData.id,
+        data_criacao: loginData.data_criacao,
+        token: jwtController.createToken(loginData.nome)
+    });
+}
+
 module.exports = {
     getUsers,
-    createUser
+    createUser,
+    login
 }
