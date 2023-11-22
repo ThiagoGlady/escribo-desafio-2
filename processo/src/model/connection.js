@@ -3,10 +3,10 @@ require('dotenv').config();
 
 
 const connection = mysql.createPool({
-    host: 'db-processo-seletivo-escribo.csy0cl9wmuzm.sa-east-1.rds.amazonaws.com',
-    user: 'admin',
-    password: 'rootroot',
-    database: 'escriboBanco'
+    host: process.env.HOST,
+    user: process.env.USER,
+    password: process.env.PASSWORD,
+    database: process.env.DATABASE
 });
 
 module.exports = connection;
