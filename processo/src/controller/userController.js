@@ -29,7 +29,13 @@ const login = async (req, res) => {
     const [loginData] = await userModel.login(user);
 
     if (loginData.hasOwnProperty('mensagem')) {
-        return res.status(401).json(loginData);
+        const {mensagem} = loginData;
+
+        if (mensagem == 'Usuário e/ou senha inválidos') {
+            return res.status(401).json(loginData);
+        }
+
+        return res.status(400).json(loginData);
     };
 
     return res.status(200).json({

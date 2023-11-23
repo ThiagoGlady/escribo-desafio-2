@@ -31,6 +31,18 @@ const getUsers = async () => {
 const createUser = async (user) => {
     const {nome, email, senha, telefones} = user;
 
+    if (!nome || !email || !senha) {
+        return [{
+            mensagem: 'Dados incompletos e/ou inválidos',
+        }]
+    }
+
+    if (typeof nome != 'string' || typeof email != 'string' || typeof senha != 'string') {
+        return [{
+            mensagem: 'Algum dado não é uma string',
+        }]
+    }
+
     await connection.execute(
         `CREATE TABLE IF NOT EXISTS users (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -64,6 +76,8 @@ const createUser = async (user) => {
         [nome, email, senha, dateUTC]
     );
 
+    if (!telefones) return createdUser;
+
     createdUser[0].data_criacao = dateUTC;
 
     const userId = createdUser[0].insertId;
@@ -89,6 +103,18 @@ const verifyEmail = async (user) => {
 const login = async (user) => {
     const {email, senha} = user;
 
+    if (!email || !senha) {
+        return [{
+            mensagem: 'Dados incompletos e/ou inválidos'
+        }]
+    }
+    console.log(typeof email);
+    if (typeof email != 'string' || typeof senha != 'string') {
+        return [{
+            mensagem: 'Algum dado não é uma string',
+        }]
+    }
+
     await connection.execute(
         `CREATE TABLE IF NOT EXISTS users (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -112,15 +138,15 @@ const login = async (user) => {
     const [rows] = await connection.execute('SELECT * FROM users WHERE email = ?', [email]);
 
     if (rows.length == 0) {
-        return {
+        return [{
             mensagem: 'Usuário e/ou senha inválidos'
-        }
+        }]
     }
 
     if (rows[0].senha != senha) {
-        return {
+        return [{
             mensagem: 'Usuário e/ou senha inválidos'
-        }
+        }]
     }
 
     return rows;

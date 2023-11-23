@@ -12,7 +12,6 @@ router.get(
 
 router.get(
     '/user',
-    checkEmptyBody,
     jwtController.verifyToken,
     userController.getUser
 );
